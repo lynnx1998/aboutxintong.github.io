@@ -20,7 +20,7 @@ export const SITE: SiteConfig = {
   ogImage: 'og.png',
   lang: 'en-US',
   base: '/',
-  website: 'https://spaceship.demo',
+  website: 'https://spaceship-one.vercel.app',
   social: {
     x: 'https://x.com/astronaut',
     github: 'https://github.com/astronaut',
