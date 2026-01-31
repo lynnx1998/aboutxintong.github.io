@@ -41,9 +41,10 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       themes: {
-        light: 'github-light',
-        dark: 'github-dark',
+        light: 'min-light',
+        dark: 'catppuccin-frappe',
       },
+      defaultColor: false,
       wrap: true,
       transformers: [
         transformerNotationHighlight(),

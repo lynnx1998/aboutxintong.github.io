@@ -33,7 +33,7 @@
   </div>
 
   <nav class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full lg:w-auto">
-    <div class="flex items-center justify-center flex-nowrap gap-x-2 gap-y-2 sm:gap-4">
+    <div class="flex items-center justify-center flex-wrap gap-x-2 gap-y-2 sm:gap-4">
       {#each navLinks as link (link.name)}
         <a
           href={link.href}

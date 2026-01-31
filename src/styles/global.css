@@ -51,25 +51,25 @@
 
 @layer base {
   .dark {
-    --color-background: #09090b;
-    --color-foreground: #fafafa;
-    --color-card: #09090b;
-    --color-card-foreground: #fafafa;
-    --color-popover: #09090b;
-    --color-popover-foreground: #fafafa;
-    --color-primary: #fafafa;
-    --color-primary-foreground: #18181b;
-    --color-secondary: #27272a;
-    --color-secondary-foreground: #fafafa;
-    --color-muted: #27272a;
-    --color-muted-foreground: #a1a1aa;
-    --color-accent: #27272a;
-    --color-accent-foreground: #fafafa;
-    --color-destructive: #7f1d1d;
+    --color-background: #212737;
+    --color-foreground: #eaedf3;
+    --color-card: #303446; /* Catppuccin Frappe Base */
+    --color-card-foreground: #eaedf3;
+    --color-popover: #303446;
+    --color-popover-foreground: #eaedf3;
+    --color-primary: #f2d5cf; /* Lighter accent for Catppuccin harmony */
+    --color-primary-foreground: #303446;
+    --color-secondary: #292c3c; /* Mantle */
+    --color-secondary-foreground: #eaedf3;
+    --color-muted: #303446;
+    --color-muted-foreground: #d1d5dc;
+    --color-accent: #292c3c;
+    --color-accent-foreground: #eaedf3;
+    --color-destructive: #ef4444;
     --color-destructive-foreground: #fafafa;
-    --color-border: #27272a;
-    --color-input: #27272a;
-    --color-ring: #d4d4d8;
+    --color-border: #494d64; /* Surface 1 */
+    --color-input: #494d64;
+    --color-ring: #f2d5cf;
   }
 
   /* Fluid Typography & Scaling */
@@ -180,14 +180,49 @@
   --tw-prose-quote-borders: var(--color-border);
   --tw-prose-captions: var(--color-muted-foreground);
   --tw-prose-code: var(--color-foreground);
-  --tw-prose-pre-bg: #18181b;
+  --tw-prose-pre-bg: #f8fafc; /* Subtle off-white for light mode */
 
   font-size: 1.05rem;
   line-height: 1.75;
 }
 
+.prose pre,
+.prose .astro-code {
+  margin-top: 2.5rem !important;
+  margin-bottom: 2.5rem !important;
+  padding: 1.5rem !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+  /* Shiki will provide the background via --shiki-light-bg/--shiki-dark-bg */
+}
+
+/* Ensure syntax colors switch correctly with the .dark class */
+.shiki span,
+.astro-code span {
+  color: var(--shiki-light);
+}
+
+.dark .shiki span,
+.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+}
+
+.shiki,
+.astro-code {
+  background-color: var(--shiki-light-bg) !important;
+}
+
+.dark .shiki,
+.dark .astro-code {
+  background-color: var(--shiki-dark-bg) !important;
+  border-color: #494d64 !important; /* Catppuccin Surface 1 */
+}
+
 .dark .prose {
-  --tw-prose-pre-bg: #09090b;
+  --tw-prose-body: #d1d5dc;
+  --tw-prose-headings: #eaedf3;
+  --tw-prose-pre-bg: var(--shiki-dark-bg);
   --tw-prose-links: var(--color-foreground);
 }
 
