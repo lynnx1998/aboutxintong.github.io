@@ -4,7 +4,6 @@ import { SITE } from '@/config';
 import Header from '@/components/Header.svelte';
 import Footer from '@/components/Footer.svelte';
 import SearchModal from '@/components/SearchModal.svelte';
-import { getCollection } from 'astro:content';
 import { ClientRouter } from 'astro:transitions';
 import JsonLd from '@/components/JsonLd.astro';
 import { getWebSiteSchema, getOrganizationSchema, getPersonSchema } from '@/lib/schemas';
@@ -14,15 +13,6 @@ import LoadingIndicator from 'astro-loading-indicator/component';
 import outfitFont400 from '@fontsource/outfit/files/outfit-latin-400-normal.woff2?url';
 import outfitFont700 from '@fontsource/outfit/files/outfit-latin-700-normal.woff2?url';
 import interFontVar from '@fontsource-variable/inter/files/inter-latin-standard-normal.woff2?url';
-
-const posts = await getCollection('posts');
-const searchIndex = posts.map((post) => ({
-  id: post.id,
-  data: {
-    title: post.data.title,
-    description: post.data.description,
-  },
-}));
 
 interface Props {
   title?: string;
@@ -134,7 +124,7 @@ const gaScript = `
         <slot />
       </main>
       <Footer />
-      <SearchModal client:idle posts={searchIndex} />
+      <SearchModal client:idle />
     </div>
   </body>
 </html>

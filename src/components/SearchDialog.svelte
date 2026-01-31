@@ -10,11 +10,7 @@
     };
   }
 
-  interface Props {
-    posts: Post[];
-  }
-
-  let { posts }: Props = $props();
+  let posts = $state<Post[]>([]);
   let query = $state('');
 
   let filteredPosts = $derived(
@@ -43,6 +39,18 @@
 
   onMount(() => {
     window.addEventListener('keydown', handleKeydown);
+
+    (async () => {
+      try {
+        const res = await fetch('/api/search.json');
+        if (res.ok) {
+          posts = await res.json();
+        }
+      } catch (err) {
+        console.error('Failed to load search index:', err);
+      }
+    })();
+
     return () => window.removeEventListener('keydown', handleKeydown);
   });
 </script>
