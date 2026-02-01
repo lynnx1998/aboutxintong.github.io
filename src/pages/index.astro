@@ -3,16 +3,17 @@ import Layout from '@/layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import PostCard from '@/components/PostCard.svelte';
 import { getReadTime } from '@/lib/utils/readTime';
+import { getPublishedPosts } from '@/lib/utils/posts';
 import { SITE } from '@/config';
 import { Image } from 'astro:assets';
 import profilePhoto from '@/assets/profile_photo.png';
 
-const posts = (await getCollection('posts')).sort(
+const posts = (await getPublishedPosts()).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-const featuredPosts = posts.filter((post) => post.data.featured).slice(0, 3);
-const latestPosts = posts.filter((post) => !post.data.featured).slice(0, 5);
+const featuredPosts = posts.filter((post) => post.data.featured).slice(0, SITE.featuredPostsCount);
+const latestPosts = posts.filter((post) => !post.data.featured).slice(0, SITE.latestPostsCount);
 
 const projects = (await getCollection('projects'))
   .sort((a, b) => a.data.order - b.data.order)

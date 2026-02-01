@@ -10,8 +10,17 @@ const posts = defineCollection({
     updatedDate: z.date().optional(),
     tags: z.array(z.string()).default(['others']),
     featured: z.boolean().optional(),
+    draft: z.boolean().default(false),
     ogImage: z.string().optional(),
     canonicalURL: z.string().url().optional(),
+    showCTA: z.boolean().default(true),
+    showComments: z.boolean().default(true),
+    series: z
+      .object({
+        id: z.string(),
+        order: z.number(),
+      })
+      .optional(),
   }),
 });
 

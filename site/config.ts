@@ -11,6 +11,31 @@ export interface SiteConfig {
   homeHeroDescription: string;
   blogDescription: string;
   projectsDescription: string;
+
+  // Homepage post counts
+  featuredPostsCount: number;
+  latestPostsCount: number;
+
+  // CTA (Call-to-Action) block for blog posts
+  cta: {
+    enabled: boolean;
+    filePath: string; // Path to markdown file with CTA content
+  };
+
+  // Giscus comments configuration
+  comments: {
+    enabled: boolean;
+    repo: string; // e.g., 'username/repo'
+    repoId: string;
+    category: string;
+    categoryId: string;
+    mapping: 'pathname' | 'url' | 'title' | 'og:title' | 'specific' | 'number';
+    reactionsEnabled: boolean;
+    emitMetadata: boolean;
+    inputPosition: 'top' | 'bottom';
+    theme: string; // e.g., 'preferred_color_scheme', 'light', 'dark'
+    lang: string;
+  };
 }
 
 export const SITE: SiteConfig = {
@@ -32,4 +57,30 @@ export const SITE: SiteConfig = {
     'Building premium web experiences with Astro, Svelte, and Tailwind. Focused on performance, aesthetics, and clean code. I am currently working on open-source tools and sharing my journey through writing.',
   blogDescription: 'A collection of thoughts, tutorials, and general web discovery.',
   projectsDescription: 'Things I’ve built that I’m proud of. Many of them are open-source.',
+
+  // Homepage post counts
+  featuredPostsCount: 3,
+  latestPostsCount: 3,
+
+  // CTA (Call-to-Action) block for blog posts
+  cta: {
+    enabled: true,
+    filePath: 'site/cta.md',
+  },
+
+  // Giscus comments configuration
+  // Get your configuration from https://giscus.app
+  comments: {
+    enabled: false, // Set to true after filling in the IDs below
+    repo: 'alec-c4/spaceship', // Your GitHub repository
+    repoId: '', // Get from https://giscus.app - enter repo above and copy the value
+    category: 'General', // GitHub Discussions category name
+    categoryId: '', // Get from https://giscus.app - select category and copy the value
+    mapping: 'pathname',
+    reactionsEnabled: true,
+    emitMetadata: false,
+    inputPosition: 'bottom',
+    theme: 'preferred_color_scheme', // Automatically matches your site theme
+    lang: 'en',
+  },
 };

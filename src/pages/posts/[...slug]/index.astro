@@ -1,15 +1,19 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { render, getCollection, type CollectionEntry } from 'astro:content';
+import { render, type CollectionEntry } from 'astro:content';
 import { formatDate } from '@/lib/utils/date';
 import TableOfContents from '@/components/TableOfContents.svelte';
+import { getPublishedPosts } from '@/lib/utils/posts';
 
 import Breadcrumbs from '@/components/Breadcrumbs.svelte';
 import SocialShare from '@/components/SocialShare.svelte';
+import SeriesNavigation from '@/components/SeriesNavigation.astro';
+import CTABlock from '@/components/CTABlock.astro';
+import Comments from '@/components/Comments.svelte';
 import { getBlogPostingSchema, getBreadcrumbSchema } from '@/lib/schemas';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts');
+  const posts = await getPublishedPosts();
   return posts.map((post: CollectionEntry<'posts'>) => ({
     params: { slug: post.id },
     props: post,
@@ -62,6 +66,28 @@ const schemas = [
               {formatDate(post.data.pubDate)}
             </time>
             {
+              post.data.draft && (
+                <>
+                  <span class="hidden sm:inline text-border">•</span>
+                  <div class="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/30 px-2 py-1 rounded">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-3.5 w-3.5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    Draft
+                  </div>
+                </>
+              )
+            }
+            {
               post.data.tags && post.data.tags.length > 0 && (
                 <>
                   <span class="hidden sm:inline text-border">•</span>
@@ -83,13 +109,23 @@ const schemas = [
             {post.data.description}
           </p>
         </header>
+
+        {
+          post.data.series && (
+            <SeriesNavigation seriesId={post.data.series.id} currentPostId={post.id} />
+          )
+        }
       </div>
 
       <article class="prose max-w-none mt-12 mb-16">
         <Content />
       </article>
 
+      {post.data.showCTA !== false && <CTABlock />}
+
       <SocialShare client:load title={post.data.title} urlPath={Astro.url.pathname} />
+
+      {post.data.showComments !== false && <Comments client:load />}
     </div>
 
     <!-- Sidebar (TOC) -->

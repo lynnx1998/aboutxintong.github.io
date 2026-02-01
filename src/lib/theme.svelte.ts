@@ -1,30 +1,60 @@
-type Theme = 'light' | 'dark';
+type Theme = 'light' | 'dark' | 'system';
 
 function createTheme() {
-  let theme = $state<Theme>('dark');
+  let theme = $state<Theme>('system');
+  let mediaQuery: MediaQueryList | undefined;
+  let isListeningToSystem = false;
+
+  function updateDom(isDark: boolean) {
+    document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+  }
+
+  const onSystemThemeChange = (e: MediaQueryListEvent) => {
+    if (isListeningToSystem) {
+      updateDom(e.matches);
+    }
+  };
 
   function applyTheme(newTheme: Theme) {
-    if (typeof window !== 'undefined') {
-      if (newTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      localStorage.setItem('theme', newTheme);
+    if (typeof window === 'undefined') return;
+
+    localStorage.setItem('theme', newTheme);
+
+    if (!mediaQuery) {
+      mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    }
+
+    // Always try to remove first to avoid duplicates or when switching mode
+    mediaQuery.removeEventListener('change', onSystemThemeChange);
+
+    if (newTheme === 'system') {
+      isListeningToSystem = true;
+      updateDom(mediaQuery.matches);
+      mediaQuery.addEventListener('change', onSystemThemeChange);
+    } else {
+      isListeningToSystem = false;
+      updateDom(newTheme === 'dark');
     }
   }
 
   if (typeof window !== 'undefined') {
     const savedTheme = localStorage.getItem('theme') as Theme | null;
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    const initialTheme =
+      savedTheme && ['light', 'dark', 'system'].includes(savedTheme) ? savedTheme : 'system';
     theme = initialTheme;
     applyTheme(initialTheme);
   }
 
   function toggle() {
-    theme = theme === 'light' ? 'dark' : 'light';
+    if (theme === 'system') theme = 'light';
+    else if (theme === 'light') theme = 'dark';
+    else theme = 'system';
     applyTheme(theme);
+  }
+
+  function set(newTheme: Theme) {
+    theme = newTheme;
+    applyTheme(newTheme);
   }
 
   return {
@@ -32,6 +62,7 @@ function createTheme() {
       return theme;
     },
     toggle,
+    set,
   };
 }
 

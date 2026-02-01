@@ -82,11 +82,18 @@ const gaScript = `
           if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
             return localStorage.getItem('theme');
           }
-          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          return 'system';
         };
 
         const setDarkClass = () => {
-          const isDark = getThemePreference() === 'dark';
+          const checkDark = (theme) => {
+            if (theme === 'system') {
+              return window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            return theme === 'dark';
+          };
+
+          const isDark = checkDark(getThemePreference());
           document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
         };
 

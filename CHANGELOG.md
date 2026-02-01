@@ -5,6 +5,72 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-02-01
+
+### Added
+
+- **Draft Posts**:
+  - Added `draft` field to posts schema (boolean, default: false).
+  - Draft posts are visible only in development mode with prominent amber "DRAFT" badge.
+  - Draft posts are completely hidden in production builds.
+  - Visual indicators appear both in post lists (PostCard) and individual post pages.
+- **Publication Date Filtering**:
+  - Created `getPublishedPosts()` utility function for smart post filtering.
+  - Posts with future publication dates are hidden in production, visible in development.
+  - Allows scheduling posts by setting future `pubDate`.
+  - Development mode shows all posts regardless of date or draft status for easy preview.
+
+- **CTA (Call-to-Action) Blocks**:
+  - Added customizable CTA block system for blog posts.
+  - CTA content managed via `site/cta.md` markdown file.
+  - Global toggle in `site/config.ts` with `cta.enabled` option.
+  - Per-post control via `showCTA: false` frontmatter option.
+  - Compact, visually appealing design with proper typography and spacing.
+
+- **Comments System (Giscus)**:
+  - Integrated Giscus for GitHub Discussions-powered comments.
+  - Full configuration in `site/config.ts` with theme matching.
+  - Per-post toggle via `showComments: false` frontmatter option.
+  - Privacy-friendly, no tracking, uses GitHub authentication.
+
+- **Homepage Configuration**:
+  - Added `featuredPostsCount` option (controls featured posts display).
+  - Added `latestPostsCount` option (controls latest posts display).
+  - Configurable in `site/config.ts` for flexible homepage layouts.
+
+- **Comprehensive Documentation**:
+  - Created "How to Publish Posts in Spaceship" guide post.
+  - Created "Configuring Spaceship" guide post.
+  - Updated README.md with new features and quick start guide.
+  - Added documentation links in README to in-app guides.
+
+### Changed
+
+- **Content Collections Schema**:
+  - Added `draft: z.boolean().default(false)` to posts schema.
+  - Added `showCTA: z.boolean().default(true)` to posts schema.
+  - Added `showComments: z.boolean().default(true)` to posts schema.
+
+- **Post Filtering**:
+  - Replaced all `getCollection('posts')` calls with `getPublishedPosts()` for consistent filtering.
+  - Updated RSS feed, search API, OG images, and all page templates.
+  - Ensured draft and future posts never leak into production RSS or search indexes.
+
+- **Visual Design**:
+  - Added amber/yellow color scheme for draft indicators (accessible and distinct).
+  - Enhanced post header layout to accommodate draft badge.
+  - Improved list item styling in CTA blocks with proper bullet points.
+
+### Fixed
+
+- **Tailwind CSS v4 Compatibility**:
+  - Removed `@apply` directives from CTABlock component (not supported in Tailwind v4).
+  - Converted to vanilla CSS with proper responsive utilities.
+
+- **CTA Block Styling**:
+  - Made CTA blocks more compact by reducing font sizes, line heights, and spacing.
+  - Fixed bullet points display in CTA lists with proper `list-style: disc` and padding.
+
 ## [1.1.3] - 2026-02-01
 
 ### Performance
@@ -97,6 +163,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[1.2.0]: https://github.com/alec-c4/spaceship/compare/v1.1.3...v1.2.0
 [1.1.0]: https://github.com/alec-c4/spaceship/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/alec-c4/spaceship/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/alec-c4/spaceship/releases/tag/v1.0.0

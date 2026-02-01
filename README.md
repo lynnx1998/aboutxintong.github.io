@@ -11,7 +11,17 @@
 - **🎨 Modern Design**: Clean aesthetics with dark mode support and fluid typography.
 - **Svelte 5 Runes**: Leveraging the latest Svelte reactivity system (`$state`, `$derived`, `$props`).
 - **Tailwind CSS 4**: Next-gen CSS framework for high performance and zero-runtime.
-- **📝 Interactive Blog**: Support for MDX, allowing you to embed Svelte components directly in your posts.
+- **📝 Interactive Blog**:
+  - **MDX Support**: Embed Svelte components directly in your posts.
+  - **Series Support**: Group related posts into a series with automatic navigation.
+  - **Draft Mode**: Hide draft posts in production, visible in development.
+  - **Publication Date Filtering**: Schedule posts with future dates.
+  - **Customizable CTA**: Add call-to-action blocks at the end of posts.
+  - **Per-Post Controls**: Toggle CTA and comments individually per post.
+- **💬 Comments System**:
+  - **GitHub Discussions**: Powered by Giscus for privacy-friendly comments.
+  - **Fully Customizable**: Configure theme, language, and behavior.
+  - **Per-Post Toggle**: Enable/disable comments on individual posts.
 - **🔍 Advanced Search**: Fast, client-side search across all post titles and descriptions.
 - **📊 Robust SEO**:
   - **JSON-LD Support**: Automatic structured data for WebSite, BlogPosting, Person, and Breadcrumbs.
@@ -112,12 +122,49 @@ All site-wide settings are in `site/config.ts`:
 
 ```typescript
 export const SITE = {
-  author: 'Astronaut',
+  author: 'Your Name',
+  title: 'Your Blog',
+  desc: 'Your description',
+  website: 'https://yourdomain.com',
+
+  // Homepage configuration
+  featuredPostsCount: 1, // Number of featured posts to show
+  latestPostsCount: 3, // Number of latest posts to show
+
+  // CTA block configuration
+  cta: {
+    enabled: true,
+    filePath: 'site/cta.md', // Markdown file with CTA content
+  },
+
+  // Comments configuration (GitHub Discussions via Giscus)
+  comments: {
+    enabled: false, // Set to true after configuring
+    repo: 'username/repo',
+    repoId: '', // Get from https://giscus.app
+    categoryId: '', // Get from https://giscus.app
+    // ... more options
+  },
+
+  // Analytics
   googleAnalyticsId: 'G-XXXXXXXXXX', // Offloaded via Partytown
-  homeHeroDescription: '...', // Homepage hero text
-  // ...
 };
 ```
+
+## 📚 Documentation
+
+Comprehensive guides are available as blog posts in your installation:
+
+- **[How to Publish Posts](http://localhost:4321/posts/how-to-publish-posts)** - Complete guide to creating posts, frontmatter options, images, and advanced features
+- **[Configuring Spaceship](http://localhost:4321/posts/configuring-spaceship)** - All configuration options, deployment, and customization
+
+### Quick Links
+
+- **Creating Posts**: `site/content/posts/your-post.md`
+- **Adding Projects**: `site/content/projects/your-project.md`
+- **Customizing CTA**: Edit `site/cta.md`
+- **Configuring Comments**: Get settings from [giscus.app](https://giscus.app)
+- **Analytics**: Add your GA4 ID to `site/config.ts`
 
 ## ☁️ Deployment
 
