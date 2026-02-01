@@ -155,8 +155,8 @@ export const SITE = {
 
 Comprehensive guides are available as blog posts in your installation:
 
-- **[How to Publish Posts](http://localhost:4321/posts/how-to-publish-posts)** - Complete guide to creating posts, frontmatter options, images, and advanced features
-- **[Configuring Spaceship](http://localhost:4321/posts/configuring-spaceship)** - All configuration options, deployment, and customization
+- **[How to Publish Posts](docs/how-to-publish-posts.md)** - Complete guide to creating posts, frontmatter options, images, and advanced features
+- **[Configuring Spaceship](docs/configuring-spaceship.md)** - All configuration options, deployment, and customization
 
 ### Quick Links
 
