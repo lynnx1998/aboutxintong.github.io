@@ -34,6 +34,7 @@
   - **Heading Anchor Links**: Clickable links for sharing specific sections.
   - **Mermaid Diagrams**: Support for flowcharts and diagrams directly in markdown.
   - **Emoji Support**: Native emoji shortcodes (`:rocket:`, etc.).
+  - **Multi-language Support**: Link posts to their translated versions (e.g. English <-> Russian) with automatic flag indicators.
 - **🧹 Modular Architecture**: Well-organized components and content collections.
 
 ## 🛠️ Tech Stack

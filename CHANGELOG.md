@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.5] - 2026-02-06
+
+### Added
+
+- **Multi-language Post Support**:
+  - Integrated cross-language linking for posts using the new `translatedPosts` frontmatter field.
+  - Added `LanguageSelector` component to post pages for easy switching between translations.
+  - Automatic language flags and labels for translated content.
+  - Updated "How to Publish Posts" documentation with multi-language guide.
+  - Added English and Russian demo posts to demonstrate cross-linking.
+
+### Changed
+
+- **Astro 6 Compatibility**:
+  - Migrated content collection configuration to the new standard location: `src/content.config.ts`.
+  - Removed legacy `src/content/config.ts` to adhere to Astro 6 strict mode requirements.
+  - Verified removal of all deprecated content layer features (legacy `entry.slug`, etc.).
+
+### Removed
+
+- **Dependencies**: Removed unused `astro-og-canvas` package to reduce dependency footprint.
+
 ## [1.2.4] - 2026-02-01
 
 ### Added

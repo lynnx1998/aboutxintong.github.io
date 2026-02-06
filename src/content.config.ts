@@ -2,7 +2,10 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 const posts = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './site/content/posts' }),
+  loader: glob({
+    pattern: ['**/*.{md,mdx}', '!**/_*'],
+    base: './site/content/posts',
+  }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -23,11 +26,15 @@ const posts = defineCollection({
         order: z.number(),
       })
       .optional(),
+    translatedPosts: z.record(z.string()).optional(), // lang -> slug mapping
   }),
 });
 
 const projects = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './site/content/projects' }),
+  loader: glob({
+    pattern: ['**/*.{md,mdx}', '!**/_*'],
+    base: './site/content/projects',
+  }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -42,7 +49,10 @@ const projects = defineCollection({
 });
 
 const appearances = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './site/content/appearances' }),
+  loader: glob({
+    pattern: ['**/*.{md,mdx}', '!**/_*'],
+    base: './site/content/appearances',
+  }),
   schema: z.object({
     title: z.string(),
     event: z.string(),
@@ -57,7 +67,10 @@ const appearances = defineCollection({
 });
 
 const about = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './site/content/about' }),
+  loader: glob({
+    pattern: ['**/*.{md,mdx}', '!**/_*'],
+    base: './site/content/about',
+  }),
   schema: z.object({
     title: z.string(),
   }),

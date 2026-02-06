@@ -233,7 +233,41 @@ series:
 ---
 ```
 
-All posts in the same series will show navigation links to other posts.
+All posts in the same series will show navigation links other.
+
+## Multi-language Posts
+
+If you have translations of the same post, you can link them together to allow readers to switch languages.
+
+1. **Create separate files** for each language (e.g., `my-post-en.md` and `my-post-ru.md`).
+2. **Explicitly set the `slug`** for each post to ensure stable URLs.
+3. **Add `translatedPosts`** map to the frontmatter of each post, linking language codes to the slugs of the translations.
+
+**English Post (`my-post-en.md`):**
+
+```yaml
+---
+title: 'My Awesome Post'
+slug: 'my-awesome-post'
+lang: 'en'
+translatedPosts:
+  ru: 'my-awesome-post-ru'
+---
+```
+
+**Russian Post (`my-post-ru.md`):**
+
+```yaml
+---
+title: 'Мой Потрясающий Пост'
+slug: 'my-awesome-post-ru'
+lang: 'ru'
+translatedPosts:
+  en: 'my-awesome-post'
+---
+```
+
+This will automatically display an "Available in: 🇷🇺 RU" link on the English post, and "Available in: 🇺🇸 EN" on the Russian post.
 
 ## Advanced Features
 
