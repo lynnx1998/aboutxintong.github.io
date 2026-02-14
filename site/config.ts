@@ -56,8 +56,8 @@ export const SITE: SiteConfig = {
   title: 'Lynn — Portfolio',
   ogImage: 'og.png',
   lang: 'en-US',
-  base: '/xintong',  
-  website: 'https://lynnx1998.github.io/xintong',
+  base: '',  
+  website: 'https://lynnx1998.github.io',
 
   social: {
     github: 'https://github.com/lynnx1998',
